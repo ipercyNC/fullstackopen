@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import personsService from './services/persons';
 import Person from './components/Person';
+import ErrorNotification from './components/ErrorNotification';
+import SuccessNotification from './components/SuccessNotification';
 
 const App = () => {
     const [persons, setPersons] = useState([]);
     const [newName, setNewName] = useState('');
     const [newSearch, setNewSearch] = useState('');
     const [newNumber, setNewNumber] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
 
     const rows = () => {
         if (newSearch !== '') {
@@ -40,8 +44,10 @@ const App = () => {
                     setPersons(newPersons);
                 })
                 .catch(error => {
-                    alert(`unable to delete ${id}`);
-                    //setPersons(persons.filter(n => n.id !== id));
+                    setErrorMessage(`Information from ${name} has already been removed from server`);
+                    setTimeout(() => {
+                        setErrorMessage(null);
+                    }, 3000);
                 });
         }
     }
@@ -78,6 +84,11 @@ const App = () => {
                 .create(personObject)
                 .then(returnedPerson => {
                     setPersons(persons.concat(returnedPerson));
+                    setSuccessMessage(
+                        `Added ${returnedPerson.name}`);
+                    setTimeout(() => {
+                        setSuccessMessage(null);
+                    }, 3000);
                     setNewName('');
                     setNewNumber('');
                 });
@@ -91,11 +102,19 @@ const App = () => {
                     .then(returnedPerson => {
                         setPersons(persons.map(person =>
                             person.id !== p.id ? person : changedPerson));
+                        setSuccessMessage(
+                            `Updated ${returnedPerson.name}`);
+                        setTimeout(() => {
+                            setSuccessMessage(null);
+                        }, 3000);
                         setNewName('');
                         setNewNumber('');
                     })
                     .catch(error => {
-                        alert(`${newName} was already deleted from the server`);
+                        setErrorMessage(`Information of ${newName} has already been removed from server`);
+                        setTimeout(() => {
+                            setErrorMessage(null);
+                        }, 3000);
                         setPersons(persons.filter(curr => curr.id !== p.id));
                     })
             }
@@ -106,6 +125,10 @@ const App = () => {
     return (
         <div>
             <h2>Phonebook</h2>
+
+            <ErrorNotification message={errorMessage} />
+            <SuccessNotification message={successMessage} />
+
             filter shown with <input value={newSearch}
                 onChange={onSearchChange} />
             <h2>add a new</h2>

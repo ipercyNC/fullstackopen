@@ -10,7 +10,6 @@ const ErrorNotification = ({ message }) => {
         padding: 10,
         marginBottom: 10
     };
-
     if (message === null) return null;
     return (
         <div className="error" style={errorNotificationStyle}>

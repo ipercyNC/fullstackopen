@@ -3,12 +3,10 @@
     "",
     "\\part3",
     "\\part3\\part3app",
-    "\\part3\\phonebook\\backend",
-    "\\part3\\phonebook\\frontend",
-    "\\part3\\phonebook\\frontend\\src",
-    "\\part3\\phonebook\\frontend\\src\\components",
-    "\\part3\\phonebook\\frontend\\src\\services"
+    "\\part3\\part3app\\models",
+    "\\part3\\phonebook\\client",
+    "\\part3\\phonebook\\client\\src\\components"
   ],
-  "SelectedNode": "\\part3\\part3app\\package.json",
+  "SelectedNode": "\\part3\\part3app\\.eslintrc.js",
   "PreviewInSolutionExplorer": false
 }

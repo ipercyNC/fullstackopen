@@ -91,6 +91,12 @@ const App = () => {
                     }, 3000);
                     setNewName('');
                     setNewNumber('');
+                })
+                .catch(error => {
+                    setErrorMessage(error.response.data.error);
+                    setTimeout(() => {
+                        setErrorMessage(null);
+                    }, 3000);
                 });
         }
         else {

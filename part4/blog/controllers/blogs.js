@@ -4,34 +4,50 @@ const logger = require('../utils/logger');
 
 
 
-blogsRouter.get('/', (req, res, next) => {
-    Blog.find({})
-        .then(blogs => {
-            res.json(blogs.map(blog => blog.toJSON()));
-        })
-        .catch(error => next(error));
+blogsRouter.get('/', async (req, res) => {
+	const blogs = await Blog.find({});
+    res.json(blogs.map(blog => blog.toJSON()));
 });
 
-blogsRouter.post('/', (req, res, next) => {
-    const body = req.body;
+blogsRouter.post('/', async (req, res) => {
+	const body = req.body;
 
-    logger.info('req body', body);
+	if (body.title === undefined && body.url === undefined) {
+		res.status(400).end();
+	} else { 
+		logger.info('req body', body);
 
-    const blog = new Blog({
-        title: body.title,
-        author: body.author,
-        url: body.url,
-        likes: body.likes
-    });
-    
-    logger.info('new blog', blog);
+		const blog = new Blog({
+			title: body.title,
+			author: body.author,
+			url: body.url,
+			likes: body.likes === undefined ? 0 : body.likes,
+		});
 
-    blog
-        .save()
-        .then(savedBlog => {
-            res.json(savedBlog.toJSON());
-        })
-        .catch(error => next(error));
+		logger.info('new blog', blog);
+		const savedBlog = await blog.save();
+		res.json(savedBlog.toJSON());
+	}
 });
+
+blogsRouter.delete('/:id', async (req, res) => {
+	await Blog.findByIdAndRemove(req.params.id);
+	res.status(204).end();
+});
+
+blogsRouter.put('/:id', async (req, res) => {
+	const body = req.body;
+
+	const blog = {
+		title: body.title,
+		author: body.author,
+		url: body.url,
+		likes: body.likes
+	};
+
+	const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, blog, { new: true });
+	res.json(Blog(updatedBlog).toJSON());
+});
+
 
 module.exports = blogsRouter;

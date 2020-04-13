@@ -1,12 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\part3",
-    "\\part3\\part3app",
-    "\\part3\\part3app\\models",
-    "\\part3\\phonebook\\client",
-    "\\part3\\phonebook\\client\\src\\components"
+    "\\part4",
+    "\\part4\\part4app",
+    "\\part4\\part4app\\controllers",
+    "\\part4\\part4app\\models",
+    "\\part4\\part4app\\tests",
+    "\\part4\\part4app\\utils"
   ],
-  "SelectedNode": "\\part3\\part3app\\.eslintrc.js",
+  "SelectedNode": "\\part4\\blog",
   "PreviewInSolutionExplorer": false
 }

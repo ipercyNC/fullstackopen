@@ -2,12 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\part4",
-    "\\part4\\part4app",
-    "\\part4\\part4app\\controllers",
-    "\\part4\\part4app\\models",
-    "\\part4\\part4app\\tests",
-    "\\part4\\part4app\\utils"
+    "\\part4\\blog",
+    "\\part4\\blog\\controllers",
+    "\\part4\\blog\\models",
+    "\\part4\\part4app\\models"
   ],
-  "SelectedNode": "\\part4\\blog",
+  "SelectedNode": "\\part4\\blog\\controllers\\blogs.js",
   "PreviewInSolutionExplorer": false
 }

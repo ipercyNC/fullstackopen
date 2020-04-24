@@ -18,12 +18,12 @@ const Blog = ({ blog, user, updateBlog, deleteBlog }) => {
 	};
 
 	return (
-		<div style={blogStyle}>
-			<div style={hideWhenFullView}>
+		<div className='blog' style={blogStyle}>
+			<div className='hideWhenFullView' style={hideWhenFullView}>
 				{blog.title} {blog.author}
 				<button onClick={toggleFullView}>view</button>
 			</div>
-			<div style={showWhenFullView}>
+			<div className='showWhenFullView' style={showWhenFullView}>
 				<div>
 					{blog.title} {blog.author}
 					<button onClick={toggleFullView}>hide</button>

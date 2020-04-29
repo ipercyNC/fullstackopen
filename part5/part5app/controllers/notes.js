@@ -20,7 +20,7 @@ notesRouter.get('/:id', async (req, res) => {
 
 const getTokenFrom = req => {
 	const authorization = req.get('authorization');
-	console.log(authorization);
+	//console.log(authorization);
 	if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
 		return authorization.substring(7);
 	}
@@ -40,7 +40,7 @@ notesRouter.post('/', async (req, res) => {
 
 	const note = new Note({
 		content: body.content,
-		important: body.important === undefined ? false : body.important,
+		important: false,
         date: new Date(),
         user: user._id
 	});
@@ -59,13 +59,11 @@ notesRouter.delete('/:id', async (req, res) => {
 
 notesRouter.put('/:id', async (req, res) => {
 	const body = req.body;
-
 	const note = {
 		content: body.content,
 		important: body.important
 	};
-
-	const updatedNote = Note.findByIdAndUpdate(req.params.id, note, { new: true });
+	const updatedNote = await Note.findByIdAndUpdate(req.params.id, note, { new: true });
 	res.json(Note(updatedNote).toJSON());
 });
 

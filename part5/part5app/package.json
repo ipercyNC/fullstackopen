@@ -11,7 +11,8 @@
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
     "logs:prod": "heroku logs --tail",
     "lint": "npx eslint .",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
+		"test": "cross-env NODE_ENV=test jest --verbose --runInBand",
+		"start:test":"cross-env NODE_ENV=test node index.js"
   },
   "author": "Ian Percy",
   "license": "ISC",
@@ -27,6 +28,7 @@
     "mongoose-unique-validator": "^2.0.3"
   },
   "devDependencies": {
+    "cypress": "^4.4.1",
     "eslint": "^6.8.0",
     "nodemon": "^2.0.2",
     "supertest": "^4.0.2"

@@ -59,17 +59,22 @@ const App = () => {
 		setUser(null);
 	};
 	const handleSort = (event) => {
-		let sorted = blogs.slice();
-		if (order === null || order === false) {
-			sorted.sort((a, b) => { return b.likes - a.likes; });
-			setOrder(true);
-		}
-		else {
-			sorted.sort((a, b) => { return a.likes - b.likes; });
-			setOrder(false);
-		}
-		setBlogs(sorted);
+		blogService.getAll().then(blogs => {
+			setBlogs(blogs);
+			let sorted = blogs.slice();
+
+			if (order === null || order === false) {
+				sorted.sort((a, b) => { return b.likes - a.likes; });
+				setOrder(true);
+			}
+			else {
+				sorted.sort((a, b) => { return a.likes - b.likes; });
+				setOrder(false);
+			}
+			setBlogs(sorted);
+		});
 	};
+
 
 	const addBlog = (blogObject) => {
 		blogFormRef.current.toggleVisibility();
@@ -77,7 +82,6 @@ const App = () => {
 			.create(blogObject)
 			.then(returnedBlog => {
 				setBlogs(blogs.concat(returnedBlog));
-
 				setSuccessMessage(`A new blog -> ${returnedBlog.title} by ${returnedBlog.author} added`);
 				setTimeout(() => {
 					setSuccessMessage(null);
@@ -159,7 +163,7 @@ const App = () => {
 				</div> :
 				<div>
 					<h2>blogs</h2>
-					<p> {user.name} logged in<button onClick={handleLogout}>logout</button></p>
+					<p> {user.name} logged in<button id='logout-button' onClick={handleLogout}>logout</button></p>
 					<button onClick={handleSort}>Sort By Likes</button>
 					{blogForm()}
 					{blogs.map(blog =>

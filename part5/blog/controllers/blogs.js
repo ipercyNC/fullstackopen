@@ -26,7 +26,6 @@ blogsRouter.post('/', async (req, res) => {
 		res.status(400).end();
 	} else { 
 		logger.info('req body', body);
-
 		const blog = new Blog({
 			title: body.title,
 			author: body.author,
@@ -34,7 +33,6 @@ blogsRouter.post('/', async (req, res) => {
 			likes: body.likes === undefined ? 0 : body.likes,
 			user: user._id
 		});
-
 		logger.info('new blog', blog);
 		const savedBlog = await blog.save();
 		user.blogs = user.blogs.concat(savedBlog._id);
@@ -44,7 +42,6 @@ blogsRouter.post('/', async (req, res) => {
 });
 
 blogsRouter.delete('/:id', async (req, res) => {
-    console.log(req);
     const body = req.body;
 	const decodedToken = jwt.verify(body.token, process.env.SECRET);
 	if (!body.token || !decodedToken.id) {
